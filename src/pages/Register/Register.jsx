@@ -1,30 +1,81 @@
 import Lottie from "lottie-react";
-import { useState } from "react";
 import registerLottie from "../../assets/lottie/register.json"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import AuthContext from "../../context/AuthContext/AuthContext";
+import toast from "react-hot-toast";
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    username: "",
-    password: "",
-    confirmPassword: "",
-    agreeToTerms: false,
-  });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
-  };
+  const {signInWithGoogle, setUser, createUser, updateUserProfile} = useContext(AuthContext);
+  const navigate = useNavigate()
 
-  const handleSubmit = (e) => {
+
+  const handleSubmit = e => {
     e.preventDefault();
-    console.log("Form Submitted", formData);
+
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+    const name = e.target.name.value;
+    const photo = e.target.photo.value;
+    const terms = e.target.terms.checked;
+
+
+    if(!terms) {
+      toast.error("Please accept our terms and conditions!")
+    }
+
+    if (password.length < 6) {
+      toast.error("Password should be 6 characters or longer!");
+      return;
+    }
+
+    const passwordRegex = /(?=.*[A-Z])(?=.*[a-z]).{6,}/;
+
+    if (!passwordRegex.test(password)) {
+      toast.error(
+        "Password must contain at least one uppercase, one lowercase letter"
+      );
+      return;
+    }
+
+    // create user
+
+    createUser(email, password)
+      .then((res) => {
+        setUser(res.user);
+
+        updateUserProfile({ displayName: name, photoURL: photo })
+          .then(() => {
+            setUser((prevUser) => {
+              return { ...prevUser, displayName: name, photoURL: photo };
+            });
+            e.target.reset();
+            navigate("/");
+          })
+          .catch((error) => {
+            toast.error("Failed to update profile: " + error.message);
+          });
+      })
+      .catch((error) => {
+        e.target.reset();
+        toast.error("Failed to register: " + error.message);
+      });
+  }
+
+
+
+  const handleGoogleLogIn = () => {
+    signInWithGoogle()
+      .then((res) => {
+        setUser(res.user);
+        navigate("/");
+      })
+      .catch((error) => {
+        toast.error("Failed to login: " + error.message);
+      });
   };
+
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center min-h-screen">
@@ -40,6 +91,7 @@ const Register = () => {
         </p>
 
         <button
+        onClick={handleGoogleLogIn}
           type="button"
           className="flex items-center justify-center w-full px-4 py-2 mb-4 font-medium text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-100"
         >
@@ -63,10 +115,7 @@ const Register = () => {
             </label>
             <input
               type="text"
-              id="name"
               name="name"
-              value={formData.name}
-              onChange={handleChange}
               placeholder="Enter your full name"
               className="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-100"
               required
@@ -78,10 +127,7 @@ const Register = () => {
             </label>
             <input
               type="email"
-              id="email"
               name="email"
-              value={formData.email}
-              onChange={handleChange}
               placeholder="Enter your email"
               className="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-100"
               required
@@ -89,15 +135,12 @@ const Register = () => {
           </div>
           <div>
             <label htmlFor="username" className="block text-sm font-medium text-gray-700">
-              Username *
+              Photo Url *
             </label>
             <input
               type="text"
-              id="username"
-              name="username"
-              value={formData.username}
-              onChange={handleChange}
-              placeholder="Enter your username"
+              name="photo"
+              placeholder="Enter your photo url"
               className="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-100"
               required
             />
@@ -108,26 +151,8 @@ const Register = () => {
             </label>
             <input
               type="password"
-              id="password"
               name="password"
-              value={formData.password}
-              onChange={handleChange}
               placeholder="Enter your password"
-              className="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-100"
-              required
-            />
-          </div>
-          <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-              Re-Password *
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleChange}
-              placeholder="Confirm your password"
               className="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-100"
               required
             />
@@ -137,14 +162,11 @@ const Register = () => {
         <div className="flex items-center mt-4">
           <input
             type="checkbox"
-            id="agreeToTerms"
-            name="agreeToTerms"
-            checked={formData.agreeToTerms}
-            onChange={handleChange}
+            name="terms"
             className="w-4 h-4 text-blue-900 border-gray-300 rounded focus:ring-blue-500"
           />
           <label htmlFor="agreeToTerms" className="ml-2 text-sm text-gray-600">
-            Agree our terms and policy <span className="text-blue-500 cursor-pointer">Learn more</span>
+            Agree our terms and policy 
           </label>
         </div>
 
