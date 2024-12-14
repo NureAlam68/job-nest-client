@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { CiLocationOn } from "react-icons/ci";
 import { FaBolt } from "react-icons/fa";
 import { IoBagCheckOutline } from "react-icons/io5";
+import { Link } from "react-router-dom";
 
 const JobCard = ({ job }) => {
   const {
@@ -13,6 +14,7 @@ const JobCard = ({ job }) => {
     location,
     salaryRange,
     jobType,
+    _id,
   } = job;
   return (
     <div className="bg-blue-50 rounded-lg p-4 border transform transition duration-300 hover:-translate-y-2">
@@ -29,14 +31,18 @@ const JobCard = ({ job }) => {
               </div>
               <div>
                 <p className="font-medium text-gray-800">{company}</p>
-                <p className="text-sm text-gray-500 flex items-center gap-1"><CiLocationOn /> {location}</p>
+                <p className="text-sm text-gray-500 flex items-center gap-1">
+                  <CiLocationOn /> {location}
+                </p>
               </div>
             </div>
             <FaBolt className="text-green-500" />
           </div>
           <h3 className="mt-4 text-lg font-semibold text-gray-800">{title}</h3>
           <div className="text-sm text-gray-500 flex items-center space-x-2 mt-2">
-            <p className="flex items-center gap-1"><IoBagCheckOutline /> {jobType}</p>
+            <p className="flex items-center gap-1">
+              <IoBagCheckOutline /> {jobType}
+            </p>
           </div>
           <p className="mt-4 text-sm text-gray-600">{description}</p>
           <div className="mt-4 flex flex-wrap gap-2 items-center">
@@ -54,9 +60,11 @@ const JobCard = ({ job }) => {
           <p className="text-lg font-semibold text-blue-600">
             {salaryRange.min} - {salaryRange.max} {salaryRange.currency}
           </p>
-          <button className="bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-blue-700 transition mt-3">
-            Apply Now
-          </button>
+          <Link to={`/jobs/${_id}`}>
+            <button className="bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-blue-700 transition mt-3">
+              Apply Now
+            </button>
+          </Link>
         </div>
       </div>
     </div>
@@ -64,7 +72,7 @@ const JobCard = ({ job }) => {
 };
 
 JobCard.propTypes = {
-    job: PropTypes.object
-}
+  job: PropTypes.object,
+};
 
 export default JobCard;
