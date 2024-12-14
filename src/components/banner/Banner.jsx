@@ -7,7 +7,7 @@ const Banner = () => {
   return (
     <div className="hero bg-blue-50 min-h-[500px]">
       <div className="hero-content flex-col lg:flex-row-reverse lg:gap-10">
-        <div className="flex-1">
+        <div className="hidden flex-1 md:block">
           <motion.img
             src={team1}
             animate={{ y: [50, 100, 50] }}
@@ -21,7 +21,7 @@ const Banner = () => {
             className="max-w-sm w-72 rounded-t-[40px] rounded-br-[40px] border-l-[6px] border-b-[6px] border-[#3C65F5] shadow-2xl"
           />
         </div>
-        <div className="flex-1">
+        <div className="flex-1 overflow-hidden">
           <motion.h1
             animate={{ x: 50 }}
             transition={{
@@ -30,7 +30,7 @@ const Banner = () => {
               ease: easeOut,
               repeat: Infinity,
             }}
-            className="text-5xl font-bold"
+            className="text-3xl md:text-5xl font-bold"
           >
             Latest Job For{" "}
             <motion.span
