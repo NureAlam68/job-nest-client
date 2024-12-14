@@ -1,27 +1,46 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import loginLottie from "../../assets/lottie/login.json"
 import Lottie from "lottie-react";
+import AuthContext from "../../context/AuthContext/AuthContext";
+import toast from "react-hot-toast";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    usernameOrEmail: "",
-    password: "",
-    rememberMe: false,
-  });
+  const {logInUser, setUser, signInWithGoogle} = useContext(AuthContext);
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
-  };
+    const location = useLocation()
+    const navigate = useNavigate()
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Submitted", formData);
+
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    logInUser(email, password)
+        .then((res) => {
+            setUser(res.user)
+            e.target.reset()
+            navigate(location?.state ? location.state : "/")
+        })
+        .catch((error) => {
+            toast.error("Incorrect email or password! Please try again:" + error.message)
+        })
+   
   };
+
+  const handleGoogleLogIn = () => {
+    signInWithGoogle()
+    .then((res) => {
+      setUser(res.user)
+      navigate(location?.state ? location.state : "/")
+    })
+    .catch((error) => {
+      toast.error("Failed to login: " + error.message);
+    })
+  }
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-center min-h-screen">
@@ -37,6 +56,7 @@ const Login = () => {
         </p>
 
         <button
+        onClick={handleGoogleLogIn}
           type="button"
           className="flex items-center justify-center w-full px-4 py-2 mb-4 font-medium text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-100"
         >
@@ -56,14 +76,12 @@ const Login = () => {
         <div className="space-y-4">
           <div>
             <label htmlFor="usernameOrEmail" className="block text-sm font-medium text-gray-700">
-              Username or Email address *
+              Email address *
             </label>
             <input
-              type="text"
-              id="usernameOrEmail"
-              name="usernameOrEmail"
-              value={formData.usernameOrEmail}
-              onChange={handleChange}
+              type="email"
+              id="Email"
+              name="email"
               placeholder="Enter your username or email"
               className="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-100"
               required
@@ -77,8 +95,6 @@ const Login = () => {
               type="password"
               id="password"
               name="password"
-              value={formData.password}
-              onChange={handleChange}
               placeholder="Enter your password"
               className="w-full px-4 py-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-100 focus:border-blue-100"
               required
@@ -86,20 +102,7 @@ const Login = () => {
           </div>
         </div>
 
-        <div className="flex items-center justify-between mt-4">
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              id="rememberMe"
-              name="rememberMe"
-              checked={formData.rememberMe}
-              onChange={handleChange}
-              className="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
-            />
-            <label htmlFor="rememberMe" className="ml-2 text-sm text-gray-600">
-              Remember me
-            </label>
-          </div>
+        <div className="mt-4">
           <span className="text-sm text-blue-500 cursor-pointer">Forgot Password</span>
         </div>
 
