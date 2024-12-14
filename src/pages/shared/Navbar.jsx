@@ -1,9 +1,9 @@
 
 import { Link, NavLink } from "react-router-dom";
-import { FaGlobe } from "react-icons/fa";
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContext/AuthContext";
-
+import logo from "../../assets/job.svg"
+import  "./Navbar.css"
 
 
 
@@ -21,13 +21,13 @@ const Navbar = () => {
 
   return (
     <div className="py-4 md:p-6 lg:p-10">
-        <div className="navbar lg:gap-2 md:px-10 lg:px-5 xl:px-10 rounded-[16px] py-2 md:py-3 bg-white dark:bg-slate-800">
+        <div className="navbar lg:gap-2 md:px-10 lg:px-5 xl:px-10 rounded-[16px] py-2 md:py-3 bg-white">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 dark:text-[#0096c7]"
+              className="h-5 w-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -47,23 +47,34 @@ const Navbar = () => {
             {links}
           </ul>
         </div>
-        <Link to="/" className="text-[20px] md:text-[28px] lg:text-[32px] font-bold flex items-center gap-1 dark:text-[#0096c7]"><FaGlobe  className="text-[#0096c7]"/><span className="">GlobePass</span></Link>
+        <Link to="/" className="text-[20px] md:text-[28px] lg:text-[32px] font-bold flex items-center gap-1"><img className="h-10" src={logo} alt="" /><span>JobNest</span></Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className=" menu-horizontal lg:text-sm xl:text-base font-medium space-x-5 xl:space-x-8 dark:text-[#0096c7]">
+        <ul className=" menu-horizontal lg:text-sm xl:text-base font-medium space-x-5 xl:space-x-8">
          {links}
         </ul>
       </div>
       <div className="navbar-end">
-     <div className="mr-4">
-     </div>
-        {
-          user ?  <img className="h-11 w-11 border border-blue-600 rounded-full object-cover object-center" src={user?.photoURL} alt="" /> : <Link to="/login" className="px-4 py-1 md:py-2 md:px-[22px] rounded-[10px] border border-blue-600 bg-black text-blue-500 font-bold ml-3">Login</Link>
-        }
-        {
-          user ? <Link to="/" onClick={logOut} className="px-4 py-1 md:py-2 md:px-[22px] rounded-[10px] border border-blue-600 bg-black text-blue-500 font-bold ml-3">Log Out</Link> : <Link to="/register" className="px-4 py-1 md:py-2 md:px-[22px] rounded-[10px] border border-blue-600 bg-black text-blue-500 font-bold ml-3">Register</Link>
-        }
-      </div>
+      {
+        user ? <div className="dropdown dropdown-end">
+        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+          <div className="w-10 rounded-full">
+            <img
+              alt="Tailwind CSS Navbar component"
+              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+          </div>
+        </div>
+        <ul
+          tabIndex={0}
+          className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+          <li><Link>Logout</Link></li>
+        </ul>
+      </div> : <>
+      <Link to="/login" className="px-4 py-1 md:py-2 md:px-[22px] rounded-[10px] border bg-[#3C65F5] text-white font-bold ml-3">Login</Link>
+      <Link to="/register" className="px-4 py-1 md:py-2 md:px-[22px] rounded-[10px] border bg-[#3C65F5] text-white font-bold ml-3">Register</Link>
+      </>
+      }
+  </div>
     </div>
     </div>
   );
