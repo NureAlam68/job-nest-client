@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import loginLottie from "../../assets/lottie/login.json"
+import Lottie from "lottie-react";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -21,10 +24,11 @@ const Login = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex flex-col md:flex-row items-center justify-center min-h-screen">
+      <div className="lg:w-[400px]">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-lg p-8"
+        className="w-full max-w-lg p-3"
       >
         <h2 className="text-sm font-semibold text-center text-blue-500">Welcome back!</h2>
         <h1 className="text-2xl font-bold text-center text-gray-800">Member Login</h1>
@@ -107,9 +111,13 @@ const Login = () => {
         </button>
 
         <p className="mt-4 text-sm text-center text-gray-600">
-          Don’t have an Account? <span className="text-blue-500 cursor-pointer">Sign up</span>
+          Don’t have an Account? <Link to="/register" className="text-blue-500 cursor-pointer">Sign up</Link>
         </p>
       </form>
+      </div>
+      <div className="md:w-96">
+        <Lottie animationData={loginLottie}></Lottie>
+      </div>
     </div>
   );
 };
