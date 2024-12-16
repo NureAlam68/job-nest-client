@@ -1,29 +1,58 @@
 import { FaFileAlt, FaGithub, FaLinkedin } from "react-icons/fa";
 import { useParams } from "react-router-dom";
-
+import useAuth from "../../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const JobApply = () => {
+  const { id } = useParams();
+  const {user} = useAuth();
+//   console.log(id, user);
 
-    const { id } = useParams();
-    console.log(id);
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-
-
-    const handleSubmit = e => {
-        e.preventDefault();
-
-        const form = e.target;
+    const form = e.target;
     const github = form.github.value;
     const linkedin = form.linkedin.value;
     const resume = form.resume.value;
 
-    console.log(github, linkedin, resume)
+    // console.log(github, linkedin, resume);
+
+    const jobApplication = {
+        job_id: id,
+        applicant_email: user.email,
+        linkedin,
+        github,
+        resume
     }
 
-    return (
-        <div className="min-h-screen flex items-center justify-center bg-blue-50">
+    fetch('http://localhost:3000/job-applications', {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify(jobApplication)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.insertedId) {
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your job apply has been successful",
+                showConfirmButton: false,
+                timer: 1500
+              });
+        } 
+    })
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-blue-50">
       <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
-        <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">Apply for the Job</h2>
+        <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
+          Apply for the Job
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* GitHub URL */}
           <div className="flex items-center border-b-2 border-gray-300 focus-within:border-blue-500">
@@ -68,7 +97,7 @@ const JobApply = () => {
         </form>
       </div>
     </div>
-    );
+  );
 };
 
 export default JobApply;
