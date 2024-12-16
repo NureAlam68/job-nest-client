@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import JobCard from "../JobCard";
 import { FaChartBar, FaBullhorn, FaUniversity, FaUsers, FaStore, FaPenNib } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const JobsOfTheDay = () => {
 
@@ -16,7 +17,7 @@ const JobsOfTheDay = () => {
   ];
 
 useEffect(() => {
-  fetch('http://localhost:3000/jobs')
+  fetch('http://localhost:3000/latest-job')
   .then(res => res.json())
   .then(data => {
     setJobs(data)
@@ -42,6 +43,7 @@ useEffect(() => {
           <JobCard key={index} job={job} />
         ))}
       </div>
+      <Link to="/allJob"><div className="bg-blue-600 text-white text-sm font-medium px-8 py-3 rounded hover:bg-blue-700 transition mt-8 text-center">All Job</div></Link>
     </div>
   );
 };
