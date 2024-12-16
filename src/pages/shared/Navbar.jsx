@@ -12,9 +12,9 @@ const Navbar = () => {
 
     const links = <>
         <li className="hover:text-blue-600"><NavLink to="/">Home</NavLink></li>
-        <li className="hover:text-blue-600"><NavLink to="/allVisas">All visas</NavLink></li>
-        <li className="hover:text-blue-600"><NavLink to="/addVisa">Add Visa</NavLink></li>
-        <li className="hover:text-blue-600"><NavLink to="/myAddedVisas">My added visas</NavLink></li>
+        <li className="hover:text-blue-600"><NavLink to="/allVisas">All Job</NavLink></li>
+        <li className="hover:text-blue-600"><NavLink to="/addJob">Add Job</NavLink></li>
+        <li className="hover:text-blue-600"><NavLink to="/myAddedJobs">My added Jobs</NavLink></li>
         <li className="hover:text-blue-600"><NavLink to="/myApplications">My Applications</NavLink></li>
         
     </>
