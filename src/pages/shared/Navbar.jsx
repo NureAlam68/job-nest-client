@@ -15,7 +15,7 @@ const Navbar = () => {
         <li className="hover:text-blue-600"><NavLink to="/allVisas">All visas</NavLink></li>
         <li className="hover:text-blue-600"><NavLink to="/addVisa">Add Visa</NavLink></li>
         <li className="hover:text-blue-600"><NavLink to="/myAddedVisas">My added visas</NavLink></li>
-        <li className="hover:text-blue-600"><NavLink to="/myVisaApplications">My Visa applications</NavLink></li>
+        <li className="hover:text-blue-600"><NavLink to="/myApplications">My Applications</NavLink></li>
         
     </>
 
