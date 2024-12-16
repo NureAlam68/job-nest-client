@@ -4,6 +4,7 @@ import Home from "../pages/home/Home";
 import Register from "../pages/Register/Register";
 import Login from "../pages/Login/Login";
 import JobDetails from "../pages/jobDetails/JobDetails";
+import PrivetRoute from "./PrivetRoute";
 
 
 
@@ -23,7 +24,7 @@ const router = createBrowserRouter([
         },
         {
           path: "jobs/:id",
-          element: <JobDetails></JobDetails>,
+          element: <PrivetRoute><JobDetails></JobDetails></PrivetRoute>,
           loader: ({params}) => fetch(`http://localhost:3000/jobs/${params.id}`)
         },
         {
