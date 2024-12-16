@@ -1,13 +1,12 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import { FaMapMarkerAlt, FaBriefcase, FaEnvelope } from "react-icons/fa";
 import { MdDateRange, MdWork } from "react-icons/md";
 import { BiDollar } from "react-icons/bi";
 
-
 const JobDetails = () => {
-    const job = useLoaderData();
-    return (
-        <div className="max-w-5xl mx-auto p-6 bg-blue-50 border-2">
+  const job = useLoaderData();
+  return (
+    <div className="max-w-5xl mx-auto p-6 bg-blue-50 border-2">
       {/* Header */}
       <div className="flex items-center space-x-4">
         <img
@@ -34,7 +33,8 @@ const JobDetails = () => {
         <div className="flex items-center space-x-2">
           <BiDollar className="text-blue-600" />
           <p className="text-gray-700">
-            {job.salaryRange.min}-{job.salaryRange.max} {job.salaryRange.currency.toUpperCase()}
+            {job.salaryRange.min}-{job.salaryRange.max}{" "}
+            {job.salaryRange.currency.toUpperCase()}
           </p>
         </div>
         <div className="flex items-center space-x-2">
@@ -81,11 +81,13 @@ const JobDetails = () => {
           <p className="text-gray-700">{job.hr_name}</p>
         </div>
       </div>
-      <button className="bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-blue-700 transition mt-3">
-              Apply Now
-            </button>
+      <Link to={`/jobApply/${job._id}`}>
+        <button className="bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded hover:bg-blue-700 transition mt-3">
+          Apply Now
+        </button>
+      </Link>
     </div>
-    );
+  );
 };
 
 export default JobDetails;
