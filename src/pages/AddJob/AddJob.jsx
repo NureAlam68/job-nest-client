@@ -69,7 +69,7 @@ const AddJob = () => {
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Job Type</label>
                     <select
-                        name="type"
+                        name="jobType"
                         defaultValue=""
                         className="select select-bordered w-full mt-1"
                         required
@@ -87,7 +87,7 @@ const AddJob = () => {
                 <div>
                     <label className="block text-sm font-medium text-gray-700">Job Field</label>
                     <select
-                        name="field"
+                        name="category"
                         defaultValue=""
                         className="select select-bordered w-full mt-1"
                         required
@@ -98,7 +98,7 @@ const AddJob = () => {
                         <option value="Engineering">Engineering</option>
                         <option value="Marketing">Marketing</option>
                         <option value="Finance">Finance</option>
-                        <option value="Teaching">Teaching</option>
+                        <option value="Development">Development</option>
                     </select>
                 </div>
 
