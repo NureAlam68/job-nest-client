@@ -2,12 +2,13 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import { FaDeleteLeft } from "react-icons/fa6";
 import Swal from "sweetalert2";
-import axios from "axios";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 const MyApplications = () => {
     const { user } = useAuth();
     const [jobs, setJobs] = useState([]);
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
         // fetch(`http://localhost:3000/job-applications?email=${user.email}`)
@@ -15,11 +16,13 @@ const MyApplications = () => {
         // .then(data => {
         //     setJobs(data);
         // })
-        axios.get(`http://localhost:3000/job-applications?email=${user.email}`, {
-          withCredentials: true
-        })
+        // axios.get(`http://localhost:3000/job-applications?email=${user.email}`, {
+        //   withCredentials: true
+        // })
+
+        axiosSecure.get(`/job-applications?email=${user.email}`)
         .then(res => setJobs(res.data))
-    }, [user.email])
+    }, [axiosSecure, user.email])
 
 
     const handleDelete = (id) => {
