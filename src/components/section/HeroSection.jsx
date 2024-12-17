@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import team3 from "../../assets/team/team3.jpg"
 
 
@@ -28,9 +29,11 @@ const HeroSection = () => {
               Search all the open positions on the web. Get your own personalized salary estimate. Read reviews on over 600,000 companies worldwide. The right job is out there.
             </p>
             <div className="mt-6 flex gap-4">
+              <Link to="/addJob">
               <button className="bg-blue-600 text-white font-medium py-2 px-6 rounded-md hover:bg-blue-700 transition">
-                Search Jobs
+                Add Jobs
               </button>
+              </Link>
               <button className="text-blue-600 font-medium py-2 px-6 border border-blue-600 rounded-md hover:bg-blue-100 transition">
                 Learn More
               </button>

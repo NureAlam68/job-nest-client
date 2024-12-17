@@ -2,6 +2,7 @@ import { easeOut } from "motion";
 import { motion } from "motion/react";
 import team1 from "../../assets/team/team1.jpg";
 import team2 from "../../assets/team/team2.jpg";
+import { Link } from "react-router-dom";
 
 const Banner = () => {
   return (
@@ -44,9 +45,11 @@ const Banner = () => {
             Each month, more than 3 million job seekers turn to website in their
             search for work, making over 140,000 applications every single day
           </p>
+          <Link to="/allJob">
           <button className="btn bg-[#3C65F5] hover:bg-[#3C65F5] text-white">
             Get Started
           </button>
+          </Link>
         </div>
       </div>
     </div>

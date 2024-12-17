@@ -1,5 +1,6 @@
 import Lottie from "lottie-react";
 import jobApply from "../../assets/lottie/jobApply.json"
+import { Link } from "react-router-dom";
 
 const HiringBanner = () => {
   return (
@@ -13,9 +14,11 @@ const HiringBanner = () => {
           <p className="text-gray-600 text-sm mt-1">Let’s Work Together & Explore Opportunities</p>
         </div>
       </div>
+      <Link to="/myAddedJobs">
       <button className="mt-4 md:mt-0 bg-blue-600 text-white font-medium py-2 px-6 rounded-md hover:bg-blue-700 transition">
-        Apply now
+        Applications
       </button>
+      </Link>
     </div>
   );
 };
