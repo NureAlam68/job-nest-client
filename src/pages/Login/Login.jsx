@@ -4,6 +4,7 @@ import loginLottie from "../../assets/lottie/login.json"
 import Lottie from "lottie-react";
 import AuthContext from "../../context/AuthContext/AuthContext";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 const Login = () => {
   const {logInUser, setUser, signInWithGoogle} = useContext(AuthContext);
@@ -23,6 +24,14 @@ const Login = () => {
         .then((res) => {
             setUser(res.user)
             e.target.reset()
+
+            const user = { email: res.user.email}
+            axios.post('http://localhost:3000/jwt', user, {
+              withCredentials: true
+            })
+            .then(res => {
+              console.log(res.data)
+            })
             navigate(location?.state ? location.state : "/")
         })
         .catch((error) => {

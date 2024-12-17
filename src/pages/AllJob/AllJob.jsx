@@ -45,7 +45,7 @@ const AllJob = () => {
   };
    
      return (
-       <div className="px-4 md:px-10 lg:px-6 mt-10 md:mt-14 lg:mt-20">
+       <div className="px-4 md:px-10 lg:px-6 mt-10 md:mt-14 lg:mt-20 min-h-screen">
          <h2 className="text-4xl font-bold text-center mb-8">All Job Here</h2>
         <div className="flex flex-wrap justify-center gap-4 p-4">
          {items.map((item, index) => (
