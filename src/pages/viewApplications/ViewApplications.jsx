@@ -7,28 +7,28 @@ const ViewApplications = () => {
   const handleStatusChange = (e, id) => {
     console.log(e.target.value, id);
     const data = {
-        status: e.target.value
-    }
+      status: e.target.value,
+    };
 
     fetch(`http://localhost:3000/job-applications/${id}`, {
-        method: 'PATCH',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(data)
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
     })
-    .then(res => res.json())
-    .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         if (data.modifiedCount) {
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Status Has been updated.",
-                showConfirmButton: false,
-                timer: 1500
-            });
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Status Has been updated.",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
-    })
+      });
   };
 
   return (

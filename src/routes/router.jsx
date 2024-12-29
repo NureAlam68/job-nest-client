@@ -12,63 +12,81 @@ import MyAddedJob from "../pages/myAddedJobs/MyAddedJob";
 import AllJob from "../pages/AllJob/AllJob";
 import ViewApplications from "../pages/viewApplications/ViewApplications";
 
-
-
-
-
-
-
-
 const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <MainLayout></MainLayout>,
-      children: [
-        {
-            path: "/",
-            element: <Home></Home>
-        },
-        {
-          path: "jobs/:id",
-          element: <PrivetRoute><JobDetails></JobDetails></PrivetRoute>,
-          loader: ({params}) => fetch(`http://localhost:3000/jobs/${params.id}`)
-        },
-        {
-          path: "allJob",
-          element: <AllJob></AllJob>
-        },
-        {
-          path: "addJob",
-          element: <PrivetRoute><AddJob></AddJob></PrivetRoute>
-        },
-        {
-          path: "myAddedJobs",
-          element: <PrivetRoute><MyAddedJob></MyAddedJob></PrivetRoute>
-        },
-        {
-          path: "jobApply/:id",
-          element: <PrivetRoute><JobApply></JobApply></PrivetRoute>,
-        },
-        {
-          path: "myApplications",
-          element: <PrivetRoute><MyApplications></MyApplications></PrivetRoute>
-        },
-        {
-          path: "viewApplications/:job_id",
-          element: <PrivetRoute><ViewApplications></ViewApplications></PrivetRoute>,
-          loader: ({params}) => fetch(`http://localhost:3000/job-applications/jobs/${params.job_id}`)
-        },
-        {
-            path: "register",
-            element: <Register></Register>
-        },
-        {
-            path: "login",
-            element: <Login></Login>
-        }
-      ]
-    },
-  ]);
+  {
+    path: "/",
+    element: <MainLayout></MainLayout>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "jobs/:id",
+        element: (
+          <PrivetRoute>
+            <JobDetails></JobDetails>
+          </PrivetRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/jobs/${params.id}`),
+      },
+      {
+        path: "allJob",
+        element: <AllJob></AllJob>,
+      },
+      {
+        path: "addJob",
+        element: (
+          <PrivetRoute>
+            <AddJob></AddJob>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "myAddedJobs",
+        element: (
+          <PrivetRoute>
+            <MyAddedJob></MyAddedJob>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "jobApply/:id",
+        element: (
+          <PrivetRoute>
+            <JobApply></JobApply>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "myApplications",
+        element: (
+          <PrivetRoute>
+            <MyApplications></MyApplications>
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "viewApplications/:job_id",
+        element: (
+          <PrivetRoute>
+            <ViewApplications></ViewApplications>
+          </PrivetRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/job-applications/jobs/${params.job_id}`),
+      },
+      {
+        path: "register",
+        element: <Register></Register>,
+      },
+      {
+        path: "login",
+        element: <Login></Login>,
+      },
+    ],
+  },
+]);
 
-
-  export default router;
+export default router;

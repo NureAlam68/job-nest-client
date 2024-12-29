@@ -5,9 +5,9 @@ import Swal from "sweetalert2";
 
 const JobApply = () => {
   const { id } = useParams();
-  const {user} = useAuth();
+  const { user } = useAuth();
   const navigate = useNavigate();
-//   console.log(id, user);
+  //   console.log(id, user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,33 +20,33 @@ const JobApply = () => {
     // console.log(github, linkedin, resume);
 
     const jobApplication = {
-        job_id: id,
-        applicant_email: user.email,
-        linkedin,
-        github,
-        resume
-    }
+      job_id: id,
+      applicant_email: user.email,
+      linkedin,
+      github,
+      resume,
+    };
 
-    fetch('http://localhost:3000/job-applications', {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json'
-        },
-        body: JSON.stringify(jobApplication)
+    fetch("http://localhost:3000/job-applications", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(jobApplication),
     })
-    .then(res => res.json())
-    .then(data => {
-        if(data.insertedId) {
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Your job apply has been successful",
-                showConfirmButton: false,
-                timer: 1500
-              });
-              navigate('/myApplications')
-        } 
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your job apply has been successful",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+          navigate("/myApplications");
+        }
+      });
   };
 
   return (

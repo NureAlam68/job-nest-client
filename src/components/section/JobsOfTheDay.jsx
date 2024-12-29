@@ -3,17 +3,15 @@ import JobCard from "../JobCard";
 import { Link } from "react-router-dom";
 
 const JobsOfTheDay = () => {
+  const [jobs, setJobs] = useState([]);
 
-  const [jobs, setJobs] = useState([])
-
-
-useEffect(() => {
-  fetch('http://localhost:3000/latest-job')
-  .then(res => res.json())
-  .then(data => {
-    setJobs(data)
-  })
-}, [])
+  useEffect(() => {
+    fetch("http://localhost:3000/latest-job")
+      .then((res) => res.json())
+      .then((data) => {
+        setJobs(data);
+      });
+  }, []);
 
   return (
     <div className="px-4 md:px-10 lg:px-6 mt-10 md:mt-14 lg:mt-20">
@@ -23,7 +21,11 @@ useEffect(() => {
           <JobCard key={index} job={job} />
         ))}
       </div>
-      <Link to="/allJob"><div className="bg-blue-600 text-white text-sm font-medium px-8 py-3 rounded hover:bg-blue-700 transition mt-8 text-center">All Job</div></Link>
+      <Link to="/allJob">
+        <div className="bg-blue-600 text-white text-sm font-medium px-8 py-3 rounded hover:bg-blue-700 transition mt-8 text-center">
+          All Job
+        </div>
+      </Link>
     </div>
   );
 };
