@@ -7,7 +7,9 @@ const MyAddedJob = () => {
   const { user } = useAuth();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/jobs?email=${user.email}`)
+    fetch(
+      `https://job-portal-server-iota-plum.vercel.app/jobs?email=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setJobs(data);

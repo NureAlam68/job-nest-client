@@ -12,12 +12,12 @@ const AddJob = () => {
     const initialData = Object.fromEntries(formData.entries());
 
     const { min, max, currency, ...newJob } = initialData;
-    newJob.salaryRange = { min, max, currency };
+    newJob.salaryRange = { min: parseInt(min), max: parseInt(max), currency };
     newJob.requirements = newJob.requirements.split("\n");
     newJob.responsibilities = newJob.responsibilities.split("\n");
     console.log(newJob);
 
-    fetch("http://localhost:3000/jobs", {
+    fetch("https://job-portal-server-iota-plum.vercel.app/jobs", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(newJob),
@@ -123,7 +123,7 @@ const AddJob = () => {
               Min Salary
             </label>
             <input
-              type="text"
+              type="number"
               name="min"
               placeholder="Minimum salary"
               className="input input-bordered w-full mt-1"
@@ -135,7 +135,7 @@ const AddJob = () => {
               Max Salary
             </label>
             <input
-              type="text"
+              type="number"
               name="max"
               placeholder="Maximum salary"
               className="input input-bordered w-full mt-1"
@@ -155,9 +155,9 @@ const AddJob = () => {
               <option value="" disabled>
                 Select Currency
               </option>
-              <option value="BDT">BDT</option>
-              <option value="USD">USD</option>
-              <option value="ERO">ERO</option>
+              <option value="BDT">bdt</option>
+              <option value="USD">usd</option>
+              <option value="ERO">ero</option>
             </select>
           </div>
         </div>
@@ -250,6 +250,7 @@ const AddJob = () => {
             <input
               type="text"
               name="hr_email"
+              readOnly
               defaultValue={user?.email}
               placeholder="Enter HR email"
               className="input input-bordered w-full mt-1"

@@ -6,7 +6,7 @@ const JobsOfTheDay = () => {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/latest-job")
+    fetch("https://job-portal-server-iota-plum.vercel.app/latest-job")
       .then((res) => res.json())
       .then((data) => {
         setJobs(data);

@@ -10,12 +10,12 @@ const MyApplications = () => {
   const axiosSecure = useAxiosSecure();
 
   useEffect(() => {
-    // fetch(`http://localhost:3000/job-applications?email=${user.email}`)
+    // fetch(`https://job-portal-server-iota-plum.vercel.app/job-applications?email=${user.email}`)
     // .then(res => res.json())
     // .then(data => {
     //     setJobs(data);
     // })
-    // axios.get(`http://localhost:3000/job-applications?email=${user.email}`, {
+    // axios.get(`https://job-portal-server-iota-plum.vercel.app/job-applications?email=${user.email}`, {
     //   withCredentials: true
     // })
 
@@ -35,9 +35,12 @@ const MyApplications = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/job-applications/${id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://job-portal-server-iota-plum.vercel.app/job-applications/${id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount) {

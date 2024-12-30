@@ -50,7 +50,7 @@ const AuthProvider = ({ children }) => {
         const user = { email: currentUser.email };
 
         axios
-          .post("http://localhost:3000/jwt", user, {
+          .post("https://job-portal-server-iota-plum.vercel.app/jwt", user, {
             withCredentials: true,
           })
           .then((res) => {
@@ -60,7 +60,7 @@ const AuthProvider = ({ children }) => {
       } else {
         axios
           .post(
-            "http://localhost:3000/logout",
+            "https://job-portal-server-iota-plum.vercel.app/logout",
             {},
             {
               withCredentials: true,
